@@ -177,7 +177,9 @@ export const AutocompleteTags = ({
     if (!text || text === '') {
       return [];
     }
-    const regex = new RegExp(`${text.trim()}`, 'i');
+    let suggestionText = text.trim();
+    suggestionText = suggestionText.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+    const regex = new RegExp(`${suggestionText}`, 'i');
     return suggestions?.filter((item) => extractor(item).search(regex) >= 0);
   };
 
